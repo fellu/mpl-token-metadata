@@ -1,26 +1,64 @@
 {
-  "name": "mpl-token-metadata",
-  "private": true,
+  "name": "@metaplex-foundation/mpl-token-metadata",
+  "version": "3.1.0",
+  "description": "JavaScript client for Token Metadata",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
   "scripts": {
-    "programs:build": "./configs/program-scripts/build.sh",
-    "programs:test": "RUST_LOG=error ./configs/program-scripts/test.sh",
-    "programs:debug": "./configs/program-scripts/test.sh",
-    "programs:clean": "rm -rf ./programs/.bin",
-    "clients:rust:test": "./configs/client-scripts/test-rust-client.sh",
-    "clients:js:test": "./configs/client-scripts/test-js-client.sh",
-    "generate": "pnpm generate:idls && pnpm generate:clients",
-    "generate:idls": "node ./configs/shank.cjs",
-    "generate:clients": "node ./configs/kinobi.cjs",
-    "validator": "CI=1 amman start --config ./configs/validator.cjs",
-    "validator:debug": "amman start --config ./configs/validator.cjs",
-    "validator:logs": "CI=1 amman logs",
-    "validator:stop": "amman stop"
+    "build": "rimraf dist && tsc -p tsconfig.json",
+    "build:docs": "typedoc",
+    "test": "ava",
+    "lint": "eslint --ext js,ts,tsx src",
+    "lint:fix": "eslint --fix --ext js,ts,tsx src",
+    "format": "prettier --check src test",
+    "format:fix": "prettier --write src test"
+  },
+  "files": [
+    "/dist/src"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
+  "homepage": "https://metaplex.com",
+  "repository": "https://github.com/metaplex-foundation/mpl-candy-guard.git",
+  "author": "Metaplex Maintainers <contact@metaplex.com>",
+  "license": "Apache-2.0",
+  "peerDependencies": {
+    "@metaplex-foundation/umi": "^0.8.2"
+  },
+  "dependencies": {
+    "@metaplex-foundation/mpl-toolbox": "^0.9.0"
   },
   "devDependencies": {
-    "@metaplex-foundation/amman": "^0.12.1",
-    "@metaplex-foundation/kinobi": "^0.15.1",
-    "@metaplex-foundation/shank-js": "^0.1.0",
-    "typescript": "^4.9.4"
+    "@ava/typescript": "^3.0.1",
+    "@metaplex-foundation/umi": "^0.8.2",
+    "@metaplex-foundation/umi-bundle-tests": "^0.8.2",
+    "@solana/web3.js": "^1.73.0",
+    "@typescript-eslint/eslint-plugin": "^5.0.0",
+    "@typescript-eslint/parser": "^5.46.1",
+    "ava": "^5.1.0",
+    "eslint": "^8.0.1",
+    "eslint-config-airbnb-typescript": "^17.0.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "prettier": "^2.5.1",
+    "rimraf": "^3.0.2",
+    "typedoc": "^0.23.16",
+    "typedoc-plugin-expand-object-like-types": "^0.1.1",
+    "typedoc-plugin-missing-exports": "^1.0.0",
+    "typescript": "^4.6.2",
+    "vercel": "^28.16.8"
+  },
+  "ava": {
+    "typescript": {
+      "compile": false,
+      "rewritePaths": {
+        "src/": "dist/src/",
+        "test/": "dist/test/"
+      }
+    }
   },
   "packageManager": "pnpm@8.2.0"
 }
