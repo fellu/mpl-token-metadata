@@ -1,4 +1,5 @@
 {
+  "name": "mpl-token-metadata",
   "private": true,
   "scripts": {
     "programs:build": "./configs/program-scripts/build.sh",
